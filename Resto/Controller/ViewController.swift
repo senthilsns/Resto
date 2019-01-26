@@ -33,6 +33,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
         
         
         
+        
     }
     
     
@@ -84,6 +85,20 @@ class ViewController: UIViewController,UITextFieldDelegate {
                     
                     print(jsonResponse)
                     
+//                    guard let name = jsonResponse["name"] as? String else { return }
+//                    guard let gender = jsonResponse["gender"] as? String else { return }
+//                    guard let born = jsonResponse["born"] as? String else { return }
+//                    guard let culture = jsonResponse["culture"] as? String else { return }
+//                    guard let father = jsonResponse["father"] as? String else { return }
+//                    guard let mother = jsonResponse["mother"] as? String else { return }
+//                    guard let titles = jsonResponse["titles"] as? [String] else { return }
+//                    guard let aliases = jsonResponse["aliases"] as? [String] else { return }
+//                    guard let died = jsonResponse["died"] as? String else { return }
+//                    guard let playedBy = jsonResponse["playedBy"] as? [String] else { return }
+//
+//                    let detail = DetailModel(name: name, gender: gender, culture: culture, born: born, died: died, titles: titles, aliases: aliases, father: father, mother: mother, playedBy: playedBy)
+//                    self.characterDetailList.append(detail)
+                    
                 } catch let parsingError {
                     print("Error", parsingError)
                 }
@@ -100,14 +115,12 @@ class ViewController: UIViewController,UITextFieldDelegate {
     
     func findNearerRestaurent() {
         
-        
-        //CGRect(x: 0, y: 0, width:baseView.frame.width, height: baseView.frame.height)
         let camera = GMSCameraPosition.camera(withLatitude:12.9592, longitude: 77.6974, zoom: 8.0)
-        mapView = GMSMapView.map(withFrame:self.view.bounds, camera: camera)
-        mapView.mapType = .hybrid
+        mapView = GMSMapView.map(withFrame:CGRect(x: 0, y: 0, width:self.view.frame.width, height: self.view.frame.height - 100), camera: camera)
+        mapView.mapType = .normal
         mapView.animate(toZoom: 8)
-        self.baseView = mapView
-        self.view .addSubview(baseView)
+        self.view.addSubview(baseView)
+        self.baseView.addSubview(mapView)
         
         
         //12.9592  77.6974
@@ -118,17 +131,27 @@ class ViewController: UIViewController,UITextFieldDelegate {
             
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: latArr[i], longitude: longArr[i])
-            marker.title = "Restaurent"
-            marker.snippet = "Whitefield"
+            marker.title = "Sydney"
+            marker.snippet = "Australia"
             marker.icon = UIImage(named: "pin")
             marker.map = mapView
             
         }
-
+        
+//        let marker = GMSMarker()
+//        marker.position = CLLocationCoordinate2D(latitude: 12.9592, longitude: 77.6974)
+//        marker.title = "Sydney"
+//        marker.snippet = "Australia"
+//        marker.icon = UIImage(named: "pin")
+//        marker.map = mapView
     }
     
     
-
+    
+    
+    
+    
+    
     //MARK: TextField Delegate
     private func textFieldShouldReturn(textField: UITextField) -> Bool {
         
